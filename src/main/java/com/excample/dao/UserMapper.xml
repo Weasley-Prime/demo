@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.dao.UserMapper">
+    <resultMap id="Users" type="User">
+        <result column="id" property="id"></result>
+        <result column="name" property="name"></result>
+        <result column="age" property="ages"></result>
+    </resultMap>
+    <!--<parameterMap id="Users" type="User">-->
+        <!--<parameter property="age" -->
+    <!--</parameterMap>-->
+    <!--id=方法名；resultType=返回类型-->
+    <select id="getUsers" resultMap="Users">
+        select * FROM basedata.user;
+    </select>
+    <insert id="addUser" parameterType="com.example.pojo.User">
+        insert into basedata.user (id,name,age) values (#{id},#{name},#{ages});
+    </insert>
+    <delete id="delUser" parameterType="int">
+        delete from basedata.user where id=#{id};
+    </delete>
+    <!--paramenterType=参数类型-->
+    <select id="getUser" resultType="com.example.pojo.User" parameterType="int">
+        select * from basedata.user where id = #{id};
+    </select>
+    <update id="updataUser" parameterType="com.example.pojo.User">
+        update basedata.user set name = #{name},age = #{age} where id = #{id};
+    </update>
+    <!--limit select-->
+    <select id="getUsersByLimit" parameterType="map" resultType="com.example.pojo.User">
+        select * from basedata.user limit #{start},#{pagesize}
+    </select>
+</mapper>
